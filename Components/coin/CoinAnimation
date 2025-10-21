@@ -1,0 +1,282 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+
+const COIN_AJOLOTE_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68f67a7b82f13ed14464e7b1/05c948d53_image.png';
+const COIN_ESCUDO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68f67a7b82f13ed14464e7b1/13f352db0_ChatGPTImageOct20202501_54_32PM.png';
+
+export default function CoinAnimation({ isFlipping, result, onClick, darkMode }) {
+  const showAjolote = result === 'fortune';
+  const showEscudo = result === 'reflection';
+
+  return (
+    <motion.div
+      className="relative cursor-pointer select-none"
+      onClick={onClick}
+      whileHover={{ scale: isFlipping ? 1 : 1.05 }}
+      whileTap={{ scale: isFlipping ? 1 : 0.95 }}
+    >
+      {/* Glow effect */}
+      <motion.div
+        className="absolute inset-0 rounded-full blur-3xl"
+        animate={{
+          opacity: isFlipping ? [0.4, 0.8, 0.4] : 0.3,
+          scale: isFlipping ? [1, 1.3, 1] : 1,
+        }}
+        transition={{
+          duration: 0.5,
+          repeat: isFlipping ? Infinity : 0,
+        }}
+        style={{
+          background: darkMode 
+            ? 'radial-gradient(circle, rgba(251, 191, 36, 0.5), transparent)'
+            : 'radial-gradient(circle, rgba(251, 191, 36, 0.7), transparent)',
+        }}
+      />
+
+      {/* Coin Container */}
+      <div className="relative w-56 h-56 md:w-72 md:h-72" style={{ perspective: '1000px' }}>
+        <motion.div
+          className="relative w-full h-full"
+          style={{ 
+            transformStyle: 'preserve-3d',
+          }}
+          animate={{
+            rotateY: isFlipping ? 720 : (showEscudo ? 180 : 0),
+          }}
+          transition={{
+            duration: isFlipping ? 1.5 : 0.6,
+            ease: isFlipping ? [0.25, 0.46, 0.45, 0.94] : 'easeOut',
+          }}
+        >
+          {/* Ajolote side (front) */}
+          <div
+            className="absolute inset-0 rounded-full overflow-hidden border-8 border-amber-300/50"
+            style={{
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              boxShadow: darkMode
+                ? '0 25px 70px rgba(0,0,0,0.9), inset 0 -25px 50px rgba(0,0,0,0.4), 0 0 60px rgba(251, 191, 36, 0.3)'
+                : '0 25px 70px rgba(0,0,0,0.5), inset 0 -25px 50px rgba(0,0,0,0.3), 0 0 40px rgba(251, 191, 36, 0.2)',
+            }}
+          >
+            <img
+              src={COIN_AJOLOTE_URL}
+              alt="Moneda del Ajolote"
+              className="w-full h-full object-cover"
+              style={{
+                filter: darkMode ? 'brightness(1.1) contrast(1.1)' : 'brightness(1.05)',
+              }}
+            />
+            
+            {/* Shine overlay */}
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent"
+              style={{
+                mixBlendMode: 'overlay',
+              }}
+            />
+
+            {/* Sparkle effects on ajolote */}
+            {showAjolote && !isFlipping && (
+              <>
+                <motion.div
+                  className="absolute top-8 right-8 text-3xl drop-shadow-lg"
+                  animate={{
+                    scale: [1, 1.4, 1],
+                    opacity: [1, 0.6, 1],
+                    rotate: [0, 180, 360],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                  }}
+                >
+                  ✨
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-8 left-8 text-2xl drop-shadow-lg"
+                  animate={{
+                    scale: [1, 1.3, 1],
+                    opacity: [0.6, 1, 0.6],
+                    rotate: [0, -180, -360],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                    delay: 0.5,
+                  }}
+                >
+                  ⭐
+                </motion.div>
+                <motion.div
+                  className="absolute top-1/2 left-4 text-xl drop-shadow-lg"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.5, 1, 0.5],
+                  }}
+                  transition={{
+                    duration: 1.8,
+                    repeat: Infinity,
+                    delay: 1,
+                  }}
+                >
+                  💫
+                </motion.div>
+              </>
+            )}
+          </div>
+
+          {/* Escudo side (back) */}
+          <div
+            className="absolute inset-0 rounded-full overflow-hidden border-8 border-amber-300/50"
+            style={{
+              transform: 'rotateY(180deg)',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              boxShadow: darkMode
+                ? '0 25px 70px rgba(0,0,0,0.9), inset 0 -25px 50px rgba(0,0,0,0.4), 0 0 60px rgba(251, 191, 36, 0.3)'
+                : '0 25px 70px rgba(0,0,0,0.5), inset 0 -25px 50px rgba(0,0,0,0.3), 0 0 40px rgba(251, 191, 36, 0.2)',
+            }}
+          >
+            <img
+              src={COIN_ESCUDO_URL}
+              alt="Escudo Nacional"
+              className="w-full h-full object-cover"
+              style={{
+                filter: darkMode ? 'brightness(1.1) contrast(1.1)' : 'brightness(1.05)',
+              }}
+            />
+            
+            {/* Shine overlay */}
+            <div
+              className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent"
+              style={{
+                mixBlendMode: 'overlay',
+              }}
+            />
+
+            {/* Ripple effects on escudo */}
+            {showEscudo && !isFlipping && (
+              <>
+                <motion.div
+                  className="absolute inset-0 rounded-full border-4 border-white/30"
+                  animate={{
+                    scale: [1, 1.6],
+                    opacity: [0.6, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                  }}
+                />
+                <motion.div
+                  className="absolute inset-0 rounded-full border-4 border-white/30"
+                  animate={{
+                    scale: [1, 1.6],
+                    opacity: [0.6, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: 1,
+                  }}
+                />
+                <motion.div
+                  className="absolute top-12 right-12 text-2xl drop-shadow-lg"
+                  animate={{
+                    y: [0, -15, 0],
+                    opacity: [0.7, 1, 0.7],
+                  }}
+                  transition={{
+                    duration: 2.5,
+                    repeat: Infinity,
+                  }}
+                >
+                  🌊
+                </motion.div>
+                <motion.div
+                  className="absolute bottom-12 left-12 text-xl drop-shadow-lg"
+                  animate={{
+                    y: [0, -10, 0],
+                    opacity: [0.6, 1, 0.6],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: 0.8,
+                  }}
+                >
+                  💭
+                </motion.div>
+              </>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Edge of coin - metallic rim */}
+        <div
+          className="absolute inset-0 rounded-full border-4 pointer-events-none"
+          style={{
+            borderColor: darkMode 
+              ? 'rgba(180, 130, 60, 0.6)' 
+              : 'rgba(180, 130, 60, 0.5)',
+            boxShadow: 'inset 0 0 20px rgba(0,0,0,0.3)',
+          }}
+        />
+      </div>
+
+      {/* Particle effects during flip */}
+      {isFlipping && (
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Golden particles */}
+          {[...Array(12)].map((_, i) => (
+            <motion.div
+              key={`gold-${i}`}
+              className="absolute w-3 h-3 rounded-full bg-gradient-to-br from-amber-400 to-amber-600"
+              style={{
+                top: '50%',
+                left: '50%',
+                boxShadow: '0 0 10px rgba(251, 191, 36, 0.8)',
+              }}
+              animate={{
+                x: [0, Math.cos((i * Math.PI * 2) / 12) * 120],
+                y: [0, Math.sin((i * Math.PI * 2) / 12) * 120],
+                opacity: [1, 0],
+                scale: [1, 0.3],
+              }}
+              transition={{
+                duration: 1.2,
+                ease: 'easeOut',
+              }}
+            />
+          ))}
+          
+          {/* Sparkle trails */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={`sparkle-${i}`}
+              className="absolute text-2xl"
+              style={{
+                top: '50%',
+                left: '50%',
+              }}
+              animate={{
+                x: [0, Math.cos((i * Math.PI * 2) / 8) * 100],
+                y: [0, Math.sin((i * Math.PI * 2) / 8) * 100],
+                opacity: [1, 0],
+                rotate: [0, 360],
+              }}
+              transition={{
+                duration: 1,
+                ease: 'easeOut',
+                delay: i * 0.05,
+              }}
+            >
+              ✨
+            </motion.div>
+          ))}
+        </div>
+      )}
+    </motion.div>
+  );
+}
