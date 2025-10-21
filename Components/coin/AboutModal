@@ -1,0 +1,49 @@
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, Heart, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+export default function AboutModal({ open, onClose, darkMode }) {
+  return (
+    <AnimatePresence>
+      {open && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
+          />
+
+          {/* Modal */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="fixed inset-4 md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-lg z-50"
+          >
+            <div
+              className={`rounded-3xl p-6 h-full md:h-auto overflow-y-auto ${
+                darkMode
+                  ? 'bg-slate-900 border-2 border-teal-500/30'
+                  : 'bg-white'
+              }`}
+              style={{
+                boxShadow: '0 25px 80px rgba(0,0,0,0.5)',
+              }}
+            >
+              {/* Close button */}
+              <div className="flex justify-end mb-4">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={onClose}
+                  className={darkMode ? 'text-teal-300 hover:text-teal-100' : ''}
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+ 
