@@ -1,0 +1,120 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Share2, Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+export default function ResultDisplay({ result, phrase, onShare, darkMode }) {
+  const isAjolote = result === 'fortune';
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -20, scale: 0.9 }}
+      transition={{ duration: 0.5, ease: 'easeOut' }}
+      className="w-full max-w-md px-4"
+    >
+      <div
+        className={`rounded-3xl p-6 backdrop-blur-md ${
+          darkMode
+            ? 'bg-slate-900/80 border-2 border-teal-500/30'
+            : 'bg-white/90 border-2 border-white/40'
+        }`}
+        style={{
+          boxShadow: darkMode
+            ? '0 20px 60px rgba(0,0,0,0.6)'
+            : '0 20px 60px rgba(0,0,0,0.2)',
+        }}
+      >
+        {/* Title with icon */}
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
+          className="flex items-center justify-center gap-3 mb-4"
+        >
+          <div className="text-4xl">
+            {isAjolote ? '🦎' : '🌊'}
+          </div>
+          <h2
+            className={`text-2xl font-bold ${
+              darkMode
+                ? isAjolote ? 'text-amber-400' : 'text-teal-300'
+                : isAjolote ? 'text-amber-600' : 'text-teal-600'
+            }`}
+          >
+            {isAjolote ? 'Fortuna' : 'Reflexión'}
+          </h2>
+        </motion.div>
+
+        {/* Phrase */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className={`text-center text-lg leading-relaxed mb-6 ${
+            darkMode ? 'text-teal-50' : 'text-gray-800'
+          }`}
+          style={{
+            fontStyle: 'italic',
+          }}
+        >
+          "{phrase}"
+        </motion.p>
+
+        {/* Actions */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.7 }}
+          className="flex gap-3"
+        >
+          <Button
+            onClick={onShare}
+            className={`flex-1 ${
+              isAjolote
+                ? darkMode
+                  ? 'bg-amber-600 hover:bg-amber-700 text-white'
+                  : 'bg-amber-500 hover:bg-amber-600 text-white'
+                : darkMode
+                ? 'bg-teal-600 hover:bg-teal-700 text-white'
+                : 'bg-teal-500 hover:bg-teal-600 text-white'
+            }`}
+          >
+            <Share2 className="w-4 h-4 mr-2" />
+            Compartir
+          </Button>
+        </motion.div>
+
+        {/* Decorative sparkles */}
+        {isAjolote && (
+          <motion.div
+            className="flex justify-center gap-4 mt-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.9 }}
+          >
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                animate={{
+                  y: [0, -10, 0],
+                  opacity: [0.5, 1, 0.5],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: i * 0.2,
+                }}
+              >
+                <Sparkles className={`w-4 h-4 ${
+                  darkMode ? 'text-amber-400' : 'text-amber-500'
+                }`} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
