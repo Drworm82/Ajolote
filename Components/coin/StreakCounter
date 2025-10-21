@@ -1,0 +1,49 @@
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { Flame } from 'lucide-react';
+
+export default function StreakCounter({ darkMode }) {
+  const [streak, setStreak] = useState(0);
+
+  useEffect(() => {
+    const currentStreak = parseInt(localStorage.getItem('streak') || '0');
+    setStreak(currentStreak);
+  }, []);
+
+  if (streak === 0) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className={`flex items-center gap-2 px-4 py-2 rounded-full backdrop-blur-md ${
+        darkMode
+          ? 'bg-orange-900/50 border border-orange-500/30'
+          : 'bg-orange-100/80 border border-orange-300/50'
+      }`}
+    >
+      <Flame className={`w-5 h-5 ${
+        darkMode ? 'text-orange-400' : 'text-orange-600'
+      }`} />
+      <span className={`font-bold ${
+        darkMode ? 'text-orange-200' : 'text-orange-800'
+      }`}>
+        {streak} {streak === 1 ? 'día' : 'días'} de racha
+      </span>
+      
+      {streak >= 7 && (
+        <motion.span
+          animate={{
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+          }}
+        >
+          🔥
+        </motion.span>
+      )}
+    </motion.div>
+  );
+}
