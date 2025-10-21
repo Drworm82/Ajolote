@@ -1,0 +1,185 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Users, Ruler, Circle, Weight, Layers, History } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import { createPageUrl } from '@/utils';
+
+const COIN_AJOLOTE_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68f67a7b82f13ed14464e7b1/05c948d53_image.png';
+const COIN_ESCUDO_URL = 'https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68f67a7b82f13ed14464e7b1/13f352db0_ChatGPTImageOct20202501_54_32PM.png';
+
+export default function CoinDetails() {
+  const navigate = useNavigate();
+
+  const details = [
+    {
+      icon: Users,
+      text: 'Moneda conmemorativa mexicana del ajolote de Xochimilco'
+    },
+    {
+      icon: Ruler,
+      text: 'Tiene un diámetro de 32 mm'
+    },
+    {
+      icon: Circle,
+      text: 'Forma circular con canto estriado'
+    },
+    {
+      icon: Weight,
+      text: 'Tiene un peso de 15.945 gramos'
+    },
+    {
+      icon: Layers,
+      text: 'Aleación de bronce-aluminio y cuproníquel'
+    },
+    {
+      icon: History,
+      text: 'Parte de la Colección "100 Años Zoológico Chapultepec"'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+      {/* Header */}
+      <header className="bg-teal-700 text-white px-4 py-3 shadow-md">
+        <div className="flex items-center gap-3">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => navigate(createPageUrl('CoinFlip'))}
+            className="text-white hover:bg-teal-600"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </Button>
+          <h1 className="text-xl font-bold">Datos sobre la moneda del ajolote</h1>
+        </div>
+      </header>
+
+      {/* Content */}
+      <div className="p-6 pb-12">
+        <div className="max-w-2xl mx-auto space-y-6">
+          {/* Details List */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white rounded-2xl shadow-md overflow-hidden"
+          >
+            <div className="divide-y divide-gray-100">
+              {details.map((detail, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-4 flex items-start gap-4 hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex-shrink-0 w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center">
+                    <detail.icon className="w-5 h-5 text-teal-700" />
+                  </div>
+                  <p className="text-gray-700 leading-relaxed flex-1 pt-2">
+                    {detail.text}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* ANVERSO Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="bg-white rounded-2xl shadow-md p-6"
+          >
+            <h2 className="text-2xl font-bold text-center mb-4 text-gray-900">
+              ANVERSO
+            </h2>
+            <div className="flex justify-center mb-4">
+              <img 
+                src={COIN_AJOLOTE_URL} 
+                alt="Anverso" 
+                className="w-32 h-32 rounded-full shadow-lg"
+              />
+            </div>
+            <p className="text-gray-700 leading-relaxed text-center">
+              En el centro aparece el ajolote de Xochimilco con la inscripción 
+              "AJOLOTE DE XOCHIMILCO" en la parte superior, rodeado de elementos 
+              decorativos que representan el hábitat acuático del ajolote.
+            </p>
+          </motion.div>
+
+          {/* REVERSO Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="bg-white rounded-2xl shadow-md p-6"
+          >
+            <h2 className="text-2xl font-bold text-center mb-4 text-gray-900">
+              REVERSO
+            </h2>
+            <div className="flex justify-center mb-4">
+              <img 
+                src={COIN_ESCUDO_URL} 
+                alt="Reverso" 
+                className="w-32 h-32 rounded-full shadow-lg"
+              />
+            </div>
+            <p className="text-gray-700 leading-relaxed mb-4">
+              El Escudo Nacional con la leyenda "ESTADOS UNIDOS MEXICANOS", 
+              formando el semicírculo superior. En la parte central se encuentra 
+              el Escudo Nacional de México con el águila posada sobre un nopal.
+            </p>
+            
+            <div className="bg-teal-50 rounded-xl p-4 border border-teal-100">
+              <h3 className="font-bold text-teal-900 mb-3 flex items-center gap-2">
+                <Layers className="w-5 h-5" />
+                Composición de la moneda
+              </h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li className="flex items-start gap-2">
+                  <span className="text-teal-600 mt-1">1.</span>
+                  <span>92% (noventa y dos por ciento) de cobre;</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-teal-600 mt-1">2.</span>
+                  <span>6% (seis por ciento) de aluminio; y</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-teal-600 mt-1">3.</span>
+                  <span>2% (dos por ciento) de níquel.</span>
+                </li>
+                <li className="flex items-start gap-2 mt-3 pt-3 border-t border-teal-200">
+                  <Weight className="w-4 h-4 text-teal-600 mt-1" />
+                  <span className="font-medium">Peso: 15.945 gramos</span>
+                </li>
+              </ul>
+            </div>
+          </motion.div>
+
+          {/* Fun Fact */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl shadow-md p-6 border-2 border-amber-200"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-4xl">🦎</span>
+              <h3 className="text-xl font-bold text-amber-900">
+                ¿Sabías que...?
+              </h3>
+            </div>
+            <p className="text-gray-700 leading-relaxed">
+              El ajolote es un anfibio endémico de México en peligro de extinción. 
+              Esta moneda conmemorativa busca crear conciencia sobre la importancia 
+              de conservar esta especie única que habita en los canales de Xochimilco, 
+              Ciudad de México. El ajolote tiene la capacidad única de regenerar 
+              sus extremidades, corazón, médula espinal y otros órganos.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  );
+}
