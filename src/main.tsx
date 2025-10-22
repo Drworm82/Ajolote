@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import CoinFlip from './pages/CoinFlip'
+import './index.css'
 
 const BASENAME = '/Ajolote' // GitHub Pages en subcarpeta
 
