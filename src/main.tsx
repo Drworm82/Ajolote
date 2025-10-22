@@ -1,17 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import CoinFlip from './pages/coinflip'
+import CoinFlip from './pages/CoinFlip'
 
-// Si usas Pages en subcarpeta, pon el basename para que el router funcione:
-const BASENAME = '/Ajolote'
+const BASENAME = '/Ajolote' // GitHub Pages en subcarpeta
 
 function App() {
   return (
     <BrowserRouter basename={BASENAME}>
       <Routes>
         <Route path="/" element={<CoinFlip />} />
-        {/* agrega más rutas aquí si las necesitas */}
       </Routes>
     </BrowserRouter>
   )
